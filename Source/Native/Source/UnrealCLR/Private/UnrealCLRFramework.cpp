@@ -522,10 +522,6 @@ namespace UnrealCLRFramework {
 	}
 
 	namespace Object {
-		bool IsPendingKill(UObject* Object) {
-			return Object->IsPendingKill();
-		}
-
 		bool IsValid(UObject* Object) {
 			return Object->IsValidLowLevel();
 		}
@@ -1004,14 +1000,6 @@ namespace UnrealCLRFramework {
 	}
 
 	namespace Engine {
-		bool IsSplitScreen() {
-#if ENGINE_MAJOR_VERSION >= 5
-			return GEngine->HasMultipleLocalPlayers(UnrealCLR::Engine::World);
-#else
-			return GEngine->IsSplitScreen(UnrealCLR::Engine::World);
-#endif
-		}
-
 		bool IsEditor() {
 			return UnrealCLR::Engine::World->IsPlayInEditor();
 		}

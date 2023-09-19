@@ -401,7 +401,6 @@ namespace UnrealCLRFramework {
 	}
 
 	namespace Engine {
-		static bool IsSplitScreen();
 		static bool IsEditor();
 		static bool IsForegroundWindow();
 		static bool IsExitRequested();
@@ -515,7 +514,6 @@ namespace UnrealCLRFramework {
 	}
 
 	namespace Actor {
-		static bool IsPendingKill(AActor* Actor);
 		static bool IsRootComponentMovable(AActor* Actor);
 		static bool IsOverlappingActor(AActor* Actor, AActor* Other);
 		static void ForEachComponent(AActor* Actor, UActorComponent** Array, int32* Elements);

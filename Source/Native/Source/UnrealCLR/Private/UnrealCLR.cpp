@@ -196,7 +196,6 @@ void UnrealCLR::Module::StartupModule() {
 				int32 head = 0;
 				Shared::Functions[position++] = Shared::ObjectFunctions;
 
-				Shared::ObjectFunctions[head++] = (void*)&UnrealCLRFramework::Object::IsPendingKill;
 				Shared::ObjectFunctions[head++] = (void*)&UnrealCLRFramework::Object::IsValid;
 				Shared::ObjectFunctions[head++] = (void*)&UnrealCLRFramework::Object::Load;
 				Shared::ObjectFunctions[head++] = (void*)&UnrealCLRFramework::Object::Rename;
@@ -272,8 +271,6 @@ void UnrealCLR::Module::StartupModule() {
 			{
 				int32 head = 0;
 				Shared::Functions[position++] = Shared::EngineFunctions;
-
-				Shared::EngineFunctions[head++] = (void*)&UnrealCLRFramework::Engine::IsSplitScreen;
 				Shared::EngineFunctions[head++] = (void*)&UnrealCLRFramework::Engine::IsEditor;
 				Shared::EngineFunctions[head++] = (void*)&UnrealCLRFramework::Engine::IsForegroundWindow;
 				Shared::EngineFunctions[head++] = (void*)&UnrealCLRFramework::Engine::IsExitRequested;
@@ -1450,15 +1447,9 @@ void UnrealCLR::Module::HostError(const char_t* Message) {
 }
 
 void UnrealCLR::Module::Exception(const char* Message) {
-	const FString message(ANSI_TO_TCHAR(Message));
+	FString message(ANSI_TO_TCHAR(Message));
 
-	FString OutputLog(message);
-
-	OutputLog.ReplaceCharInline(TEXT('\n'), TEXT(' '));
-	OutputLog.ReplaceCharInline(TEXT('\r'), TEXT(' '));
-	OutputLog.ReplaceInline(TEXT("     "), TEXT(" "));
-
-	UE_LOG(LogUnrealCLR, Error, TEXT("%s: %s"), ANSI_TO_TCHAR(__FUNCTION__), *OutputLog);
+	UE_LOG(LogUnrealCLR, Error, TEXT("%s: %s"), ANSI_TO_TCHAR(__FUNCTION__), *message);
 
 	GEngine->AddOnScreenDebugMessage((uint64)-1, 10.0f, FColor::Red, *message);
 }
